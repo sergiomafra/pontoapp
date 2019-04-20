@@ -13,6 +13,7 @@ class Config:
     CSRF_ENABLED = True
     SECRET_KEY = os.environ['PONTOAPP_SECRET_KEY'].rstrip('\n')
     SQLALCHEMY_DATABASE_URI = os.getenv('PONTOAPP_DATABASE_URL').rstrip('\n')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class ProductionConfig(Config):
     DEBUG = False

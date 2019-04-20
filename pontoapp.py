@@ -1,13 +1,12 @@
-from flask import Flask, flash, redirect, render_template, request, \
-    session, abort
+from flask import Flask, flash, render_template, request, session
+from flask_sqlalchemy import SQLAlchemy
 
 import os
 
 
 app = Flask(__name__)
-app.debug = True
-app.secret_key = os.urandom(12)
-app.config['SESSION_TYPE'] = 'filesystem'
+app.config.from_object('config.DevelopmentConfig')
+db = SQLAlchemy(app)
 
 @app.route('/pontoapp')
 def pontoapp():
