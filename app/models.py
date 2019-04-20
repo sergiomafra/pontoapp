@@ -4,7 +4,7 @@ from app import db
 class User(db.Model):
     __tablename__ = 'users'
 
-    id = db.Column(db.Integer, primary_key=True)
+    uid = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(32), unique=True, nullable=False)
     password = db.Column(db.String(64), nullable=False)
 
@@ -19,8 +19,8 @@ class Ponto(db.Model):
 
     __tablename__ = 'ponto'
 
-    id = db.Column(db.Integer, primary_key=True)
-    uid = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    ponto_id = db.Column(db.Integer, primary_key=True)
+    uid = db.Column(db.Integer, db.ForeignKey('users.uid'), nullable=False)
     date = db.Column(db.Date, nullable=False)
     hour1 = db.Column(db.Time)
     hour2 = db.Column(db.Time)
