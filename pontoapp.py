@@ -1,35 +1,10 @@
-from flask import Flask, flash, render_template, request, session
-from flask_sqlalchemy import SQLAlchemy
-
-import os
+from app import app, db
+from app.models import User, Ponto
 
 
-app = Flask(__name__)
-app.config.from_object('config.DevelopmentConfig')
-db = SQLAlchemy(app)
-
-@app.route('/pontoapp')
-def pontoapp():
-    if not session.get('logged_in'):
-        return render_template('login.html')
-    else:
-        return 'Hello Boss!'
-
-@app.route('/pontoapp/login', methods=['POST'])
-def do_login():
-    ## Only testing
-    if request.form['password'] == 'password' and \
-        request.form['username'] == 'admin':
-        session['logged_in'] = True
-    else:
-        flash('wrong password!')
-
-    return pontoapp()
-
-@app.route('/pontoapp/logout')
-def do_logout():
-    session['logged_in'] = False
-    return pontoapp()
+@app.shell_context_processor
+def make_shell_context():
+    return {'db': db, 'User': User, 'Ponto': ponto}
 
 if __name__ == '__main__':
     app.run()
